@@ -4,25 +4,17 @@ import todos from './reducer/todos'
 import exception from './middleware/exception'
 import logger from './middleware/logger'
 
-
-const dispatch = action => {
-  console.log(action)
-}
-
-exception(logger(dispatch))({type: 'dispatchMiddleware'})
-
-// console.log(exception(logger(dispatch)).toString())
-
 const reducers = combineReducer({
   hello,
   todos
 })
 
-// const store = createStore(reducers)
-// store.subscribe(() => {
-//   console.log(store.getState())
-// })
-// store.dispatch({
-//   type: 'HELLO',
-//   text: 'WORLD'
-// })
+const store = createStore(reducers)
+const next = store.dispatch
+
+store.dispatch = exception(logger(next))
+
+store.dispatch({
+  type: 'HELLO',
+  text: 'WORLD'
+})
