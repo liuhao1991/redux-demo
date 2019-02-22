@@ -1,4 +1,4 @@
-import { createStore, combineReducer } from './src'
+import { createStore, combineReducer, applyMiddleware } from './src'
 import hello from './reducer/hello'
 import todos from './reducer/todos'
 import exception from './middleware/exception'
@@ -9,10 +9,7 @@ const reducers = combineReducer({
   todos
 })
 
-const store = createStore(reducers)
-const next = store.dispatch
-
-store.dispatch = exception(logger(next))
+const store = createStore(reducers, applyMiddleware(exception, logger))
 
 store.dispatch({
   type: 'HELLO',

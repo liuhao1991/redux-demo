@@ -1,6 +1,5 @@
-export default next => action => {
+export default ({getState}) => next => action => {
   try {
-    console.log('exception')
     next(action)
   } catch (error) {
     console.error(error.message)

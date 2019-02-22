@@ -1,4 +1,13 @@
-export default function(reducer, initState, applyMiddleware) {
+export default function createStore(reducer, initState, rewriteCreateStore) {
+  if (typeof initState === 'function') {
+    rewriteCreateStore = initState
+    initState = {}
+  }
+
+  if (rewriteCreateStore) {
+    return rewriteCreateStore(createStore)(reducer, initState)
+  }
+
   let listeners = []
   let state = initState || {}
 

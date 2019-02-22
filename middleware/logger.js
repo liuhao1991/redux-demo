@@ -1,6 +1,6 @@
-export default next => action => {
-  console.log('previousState')
+export default ({getState}) => next => action => {
+  console.log('previousState', getState())
   console.log('action', action)
   next(action)
-  console.log('nextState')
+  console.log('nextState', getState())
 }
