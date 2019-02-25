@@ -13,5 +13,5 @@ const store = createStore(reducers, applyMiddleware(exception, logger))
 
 store.dispatch({
   type: 'HELLO',
-  text: 'WORLD'
+  text: 'Redux'
 })
